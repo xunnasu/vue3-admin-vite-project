@@ -2,7 +2,7 @@
   <div class="container">
     <el-row :gutter="24">
       <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-        相关文档123：
+        相关文档456：
         <a href="https://vueflow.dev/" target="_blank">Vue Flow官方文档</a>
       </el-col>
     </el-row>
@@ -73,15 +73,15 @@ const updatePos = () => {
       y: Math.random() * 400,
     }
   });
-};
+}
 
 const logToObject = () => {
   ElMessage.info(JSON.stringify(toObject()));
-}
+};
 const resetTransform = () => {
   elements.value = data
   setTransform({ x: 0, y: 0, zoom: 1 })
-}
+};
 const toggleclass = () => nodes.value.forEach(el => (el.class = el.class === 'node-light' ? 'node-dark' : 'node-light'))
 </script>
 <style lang="scss" scoped>
