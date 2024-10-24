@@ -1,9 +1,8 @@
-
 <template>
   <div class="container">
     <el-row :gutter="24">
       <el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24">
-        相关文档：
+        相关文档123：
         <a href="https://vueflow.dev/" target="_blank">Vue Flow官方文档</a>
       </el-col>
     </el-row>
@@ -17,7 +16,7 @@
       <el-button type="primary" @click="logToObject">查看属性</el-button>
     </el-row>
 
-    <VueFlow fit-view-on-init class="my-flow" v-model="elements">
+    <VueFlow v-model="elements" fit-view-on-init class="my-flow">
       <Background />
       <Panel :position="PanelPosition.TopRight">
         <div>
@@ -32,9 +31,7 @@
   </div>
 </template>
 
-
 <script lang="ts" setup name="VueFlow">
-
 import '@vue-flow/core/dist/style.css';
 /* import the default theme (optional) */
 import '@vue-flow/core/dist/theme-default.css';
@@ -52,42 +49,40 @@ const data = [
   { id: 'e1-2', source: '1', target: '2', animated: true },
   { id: 'e1-3', source: '1', target: '3' },
 ]
-let elements = ref(data)
+const elements = ref(data);
 
 const isHidden = ref(false)
 
-let { onPaneReady, onNodeDragStop, onConnect, addEdges, setTransform, toObject, nodes, edges } = useVueFlow()
+const { onPaneReady, onNodeDragStop, onConnect, addEdges, setTransform, toObject, nodes, edges } = useVueFlow();
 
 watch(isHidden, () => {
-  nodes.value.forEach((n) => (n.hidden = isHidden.value))
-  edges.value.forEach((e) => (e.hidden = isHidden.value))
-})
+  nodes.value.forEach(n => (n.hidden = isHidden.value))
+  edges.value.forEach(e => (e.hidden = isHidden.value))
+});
 
 onPaneReady(({ fitView }) => {
   fitView()
-})
-onNodeDragStop((e) => console.log('drag stop', e))
-onConnect((params) => addEdges([params]))
+});
+onNodeDragStop(e => console.log('drag stop', e))
+onConnect(params => addEdges([params]))
 
 const updatePos = () => {
-  nodes.value.forEach((el) => {
+  nodes.value.forEach(el => {
     el.position = {
       x: Math.random() * 400,
       y: Math.random() * 400,
     }
-  })
+  });
 };
 
 const logToObject = () => {
   ElMessage.info(JSON.stringify(toObject()));
-};
+}
 const resetTransform = () => {
   elements.value = data
   setTransform({ x: 0, y: 0, zoom: 1 })
-};
-const toggleclass = () => nodes.value.forEach((el) => (el.class = el.class === 'node-light' ? 'node-dark' : 'node-light'))
-
-
+}
+const toggleclass = () => nodes.value.forEach(el => (el.class = el.class === 'node-light' ? 'node-dark' : 'node-light'))
 </script>
 <style lang="scss" scoped>
 .my-flow {
@@ -97,6 +92,7 @@ const toggleclass = () => nodes.value.forEach((el) => (el.class = el.class === '
   :deep(.node-light) {
     background: none;
   }
+
   :deep(.node-dark) {
     background: #eeeeee;
   }
